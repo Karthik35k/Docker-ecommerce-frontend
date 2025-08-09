@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useCart } from "../context/CartContext";
-import { getProducts } from "../services/productService";
+import { useCart } from "../context/components/CartContext";
+import { getProducts } from "../context/Service/productService";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
+import "../style.css";
 
 const BASE_URL = 'http://localhost:9090/back1';
 
-const Computers = () => {
+const Pendrives = () => {
   const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const data = await getProducts("computers"); // Fetch only computer category
-      setProducts(data);
+      try {
+        const data = await getProducts("pendrives"); // Fetch only pendrive category
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching pendrives:", error);
+      }
     };
     fetchProducts();
   }, []);
@@ -23,38 +27,34 @@ const Computers = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       alert("Please login to add items to the cart!");
-      navigate("/login");
+      navigate("login"); // Use relative path for nested route
       return;
     }
-
     addToCart(product);
-    navigate("/cart"); // Redirect to cart page after adding product
+    navigate("cart"); // Use relative path for nested route
   };
 
   return (
     <div className="product-container">
-      <h2>Computers</h2>
+      <h2>Pendrives</h2>
       <div className="product-grid">
         {products.length > 0 ? (
           products.map((product) => (
             <div key={product.id} className="product-card">
-            <img
-  src={`${BASE_URL}/api/products/images/${product.imagePath}`}
-  alt={product.name}
-/>
+              <img
+                src={`${BASE_URL}/api/products/images/${product.imagePath}`}
+                alt={product.name}/>
               <h4>{product.name}</h4>
               <p>${product.price.toFixed(2)}</p>
-              <button onClick={() => handleAddToCart(product)}>
-                Add to Cart
-              </button>
+              <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
             </div>
           ))
         ) : (
-          <p>No computers available.</p>
+          <p>No pendrives available.</p>
         )}
       </div>
     </div>
   );
 };
 
-export default Computers;
+export default Pendrives;

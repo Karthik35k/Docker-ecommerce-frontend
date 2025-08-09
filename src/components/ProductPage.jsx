@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../services/productService";
-import { addToCart } from "../services/cartService";
-import "./style.css";
+import { useCart } from "../context/components/CartContext";
+import { useNavigate } from "react-router-dom";
+import { getProducts } from "../context/Service/productService";
+import "../style.css";
 
 const BASE_URL = 'http://localhost:9090/back1';
 
 const ProductPage = ({ category }) => {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -20,13 +23,16 @@ const ProductPage = ({ category }) => {
     fetchProducts();
   }, [category]);
 
-  const handleAddToCart = async (product) => {
-    try {
-      await addToCart(product.id);
-      alert("Product added to cart successfully!");
-    } catch (error) {
-      console.error("Error adding to cart:", error);
+  const handleAddToCart = (product) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login to add items to the cart!");
+      navigate("login");
+      return;
     }
+    addToCart(product);
+    alert("Product added to cart successfully!");
+    navigate("cart");
   };
 
   return (
@@ -40,11 +46,12 @@ const ProductPage = ({ category }) => {
         {products.length > 0 ? (
           products.map((product) => (
             <div key={product.id} className="product-card">
-                <img
-                    src={`${BASE_URL}/api/products/images/${product.imagePath}`}
-                    alt={product.name}/>
+              <img
+                src={`${BASE_URL}/api/products/images/${product.imagePath}`}
+                alt={product.name}
+              />
               <h3>{product.name}</h3>
-              <p>Price: ${product.price}</p>
+              <p>Price: ${product.price.toFixed(2)}</p>
               <button onClick={() => handleAddToCart(product)}>
                 Add to Cart
               </button>

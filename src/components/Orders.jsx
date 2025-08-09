@@ -1,15 +1,15 @@
 import React from "react";
-import { useCart } from "../context/CartContext";
-import "./style.css"
+import { useCart } from "../context/components/CartContext";
+import "../style.css";
 
-const PaymentHistory = () => {
+const Orders = () => {
   const { paymentHistory } = useCart();
 
   return (
     <div className="history-container">
-      <h2>Payment History</h2>
+      <h2>Orders</h2>
       {paymentHistory.length === 0 ? (
-        <p>No past payments</p>
+        <p>No past orders</p>
       ) : (
         <ul>
           {paymentHistory.map((transaction) => (
@@ -29,6 +29,6 @@ const PaymentHistory = () => {
       )}
     </div>
   );
-};
+};    
 
-export default PaymentHistory;
+export default Orders;  

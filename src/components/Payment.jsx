@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useCart } from "../context/components/CartContext";
 import { useNavigate } from "react-router-dom";
-import "./style.css";
-
-
-import { useCart } from "../context/CartContext";
-
+import "../style.css";
 
 const Payment = () => {
   const { cartItems, completePayment } = useCart();
@@ -13,7 +10,7 @@ const Payment = () => {
   const handlePayment = () => {
     completePayment(); // Clear cart and save payment history
     alert("Payment Successful!");
-    navigate("/orders"); // Navigate to payment history page
+    navigate("orders"); // Use relative path for nested route
   };
 
   return (

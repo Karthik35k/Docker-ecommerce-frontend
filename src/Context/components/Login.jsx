@@ -1,35 +1,34 @@
 import React, { useState } from "react";
-import { signup } from "../services/authService";
+import { login } from "../Service/authService";
 import { useNavigate, Link } from "react-router-dom";
 
-const Signup = () => {
+const Login = () => {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = async () => {
+  const handleLogin = async () => {
     try {
-      await signup(username, email, password);
-      alert("Signup successful! Please login.");
-      navigate("/login");
+      await login(username, password);
+      localStorage.setItem("isAuthenticated", "true");
+      window.dispatchEvent(new Event("storage"));
+      navigate("/");
     } catch (error) {
-      alert("Signup failed!");
+      alert("Invalid credentials!");
     }
   };
 
   return (
     <div className="center-layout">
       <div className="auth-container">
-        <h2>Sign Up</h2>
+        <h2>Login</h2>
         <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <button onClick={handleSignup}>Sign Up</button>
-        <p>Already have an account? <Link to="/login">Login</Link></p>
+        <button onClick={handleLogin}>Login</button>
+        <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Login;

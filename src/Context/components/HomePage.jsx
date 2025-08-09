@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { logout } from "../services/authService";
+import { logout } from "../Service/authService";
 import { FaUserCircle } from "react-icons/fa";
-import "./style.css";
+import "../../style.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const HomePage = () => {
     logout();
     setIsAuthenticated(false);
     setDropdownOpen(false);
-    navigate("/login");
+    navigate("login"); // Use relative path
   };
 
   const toggleDropdown = () => {
@@ -44,16 +44,16 @@ const HomePage = () => {
               />
               {dropdownOpen && (
                 <div className="dropdown">
-                  <Link to="/cart" onClick={() => setDropdownOpen(false)}>Cart</Link>
-                  <Link to="/orders" onClick={() => setDropdownOpen(false)}>Orders</Link>
+                  <Link to="cart" onClick={() => setDropdownOpen(false)}>Cart</Link>
+                  <Link to="orders" onClick={() => setDropdownOpen(false)}>Orders</Link>
                   <button onClick={handleLogout}>Logout</button>
                 </div>
               )}
             </div>
           ) : (
             <>
-              <Link to="/login"><button>Login</button></Link>
-              <Link to="/signup"><button>Sign Up</button></Link>
+              <Link to="login"><button>Login</button></Link>
+              <Link to="signup"><button>Sign Up</button></Link>
             </>
           )}
         </div>
@@ -63,19 +63,19 @@ const HomePage = () => {
       <div className="sidebar">
         <ul>
           <li>
-            <Link to="/about-us">About Us</Link>
+            <Link to="about-us">About Us</Link>
           </li>
           <li>
-            <Link to="/computers">Computers</Link>
+            <Link to="computers">Computers</Link>
           </li>
           <li>
-            <Link to={isAuthenticated ? "/mobiles" : "/login"}>Mobiles</Link>
+            <Link to={isAuthenticated ? "mobiles" : "login"}>Mobiles</Link>
           </li>
           <li>
-            <Link to={isAuthenticated ? "/laptops" : "/login"}>Laptops</Link>
+            <Link to={isAuthenticated ? "laptops" : "login"}>Laptops</Link>
           </li>
           <li>
-            <Link to={isAuthenticated ? "/pendrives" : "/login"}>Pendrives</Link>
+            <Link to={isAuthenticated ? "pendrives" : "login"}>Pendrives</Link>
           </li>
         </ul>
       </div>
