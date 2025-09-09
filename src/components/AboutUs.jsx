@@ -14,7 +14,7 @@ const AboutUs = () => {
       <div className="about-grid">
         <Link to="computers">
           <div className="about-item">        
-            <img src="/computers.jpeg" alt="Computers" />
+            <img src="./computers.jpeg" alt="Computers" />
             <h3>Computers</h3>
             <p>Find the best computers for gaming, work, and personal use.</p>
           </div>
@@ -22,21 +22,21 @@ const AboutUs = () => {
 
         <Link to="mobiles">
           <div className="about-item">
-            <img src="/mobiles.jpeg" alt="Mobiles" />
+            <img src="./mobiles.jpeg" alt="Mobiles" />
             <h3>Mobiles</h3>
             <p>Latest smartphones from top brands at unbeatable prices.</p>
           </div>
         </Link>
         <Link to="laptops">
           <div className="about-item">
-            <img src="/laptops.jpeg" alt="Laptops" />
+            <img src="./laptops.jpeg" alt="Mobiles" />
             <h3>Laptops</h3>
             <p>Powerful laptops for professionals, students, and gamers.</p>
           </div>
         </Link>
         <Link to="pendrives">
           <div className="about-item">
-            <img src="/accessories.jpg" alt="Accessories" />
+            <img src="./accessories.jpg" alt="Accessories" />
             <h3>Accessories</h3>
             <p>Find the best accessories like pendrives, keyboards, and more.</p>
           </div>
