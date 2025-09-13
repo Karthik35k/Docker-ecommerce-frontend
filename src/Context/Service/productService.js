@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:9090/ecommerce-backend/back1/api/products";
+const API_BASE_URL = "http://localhost:9090/ecommerce-backend/api/products";
 
 export const getProducts = async (category = "") => {
   try {
